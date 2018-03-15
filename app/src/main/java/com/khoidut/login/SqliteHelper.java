@@ -35,25 +35,27 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //COLUMN password
     public static final String KEY_PASSWORD = "password";
 
-    //SQL for creating users table
-    public static final String SQL_TABLE_USERS = " CREATE TABLE " + TABLE_USERS
+    public static final String KEY_TOKEN = "token";
+
+    // command SQL for creating users table
+    public static final String SQL_TABLE_USERS = " CREATE TABLE IF NOT EXISTS " + TABLE_USERS
             + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY, "
-            + KEY_USER_NAME + " TEXT, "
-            + KEY_EMAIL + " TEXT, "
-            + KEY_PASSWORD + " TEXT"
+            + KEY_USER_NAME + " TEXT NOT NULL, "
+            + KEY_EMAIL + " TEXT NOT NULL, "
+            + KEY_PASSWORD + " TEXT NOT NULL, "
+            + KEY_TOKEN + " TEXT NOT NULL"
             + " ) ";
 
-
     public SqliteHelper(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Create Table when oncreate gets called
-        sqLiteDatabase.execSQL(SQL_TABLE_USERS);
-
+//        sqLiteDatabase.execSQL(SQL_TABLE_USERS);
     }
 
     @Override
@@ -64,7 +66,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     //using this method we can add users to user table
     public void addUser(User user) {
-
         //get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -80,11 +81,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
 
+//        values.put(KEY_TOKEN, user.access_token);
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);
     }
 
     public User Authenticate(User user) {
+        System.out.println(user.getToken());
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.query(TABLE_USERS,// Selecting Table
                 new String[]{KEY_ID, KEY_USER_NAME, KEY_EMAIL, KEY_PASSWORD},//Selecting columns want to query
@@ -94,7 +97,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         if (cursor != null && cursor.moveToFirst()&& cursor.getCount()>0) {
             //if cursor has value then in user database there is user associated with this given email
-            User user1 = new User(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            User user1 = new User(cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3));
+
+//            db.query("UPDATE table " + TABLE_USERS);
+            user1.setToken(user.getToken());
 
             //Match both passwords check they are same or not
             if (user.password.equalsIgnoreCase(user1.password)) {
@@ -121,5 +130,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         //if email does not exist return false
         return false;
+    }
+
+    public void query(String sql) {
+        System.out.println(sql);
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sql);
+    }
+
+    public Cursor execQuery(String sql) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        return db.rawQuery(sql, null);
     }
 }

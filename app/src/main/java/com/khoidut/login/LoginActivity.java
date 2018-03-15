@@ -7,10 +7,24 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import cz.msebera.android.httpclient.Header;
+
+import com.google.*;
+
+import java.util.Collection;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         sqliteHelper = new SqliteHelper(this);
+        sqliteHelper.query(sqliteHelper.SQL_TABLE_USERS);
+
         initCreateAccountTextView();
         initViews();
 
@@ -40,31 +56,48 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //Check user input is correct or not
                 if (validate()) {
-
                     //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+                    RequestParams req = new RequestParams();
+                    req.put("email", Email);
+                    req.put("password", Password);
 
-                    //Authenticate user
-                    User currentUser = sqliteHelper.Authenticate(new User(null, null, Email, Password));
+                    HttpUtils.post("api/login", req, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            // called when response HTTP status is "200 OK
+                            User data = new Gson().fromJson(response.toString(), User.class);
 
-                    //Check Authentication is successful or not
-                    if (currentUser != null) {
-                        Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
+                            for (int i=0; i < data.getToken().size(); i++)
+                            {
+                                System.out.println(data.getToken().get(i).getAccess_token());
+                            }
 
-                        //User Logged in Successfully Launch You home screen activity
-                       /* Intent intent=new Intent(LoginActivity.this,HomeScreenActivity.class);
-                        startActivity(intent);
-                        finish();*/
-                    } else {
+                            //Authenticate user
+//                          User currentUser = sqliteHelper.Authenticate(new User(null, null, Email, Password));
+                            User currentUser = sqliteHelper.Authenticate(data);
+                            //Check Authentication is successful or not
+                            if (currentUser != null) {
+                                Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
+                                //User Logged in Successfully Launch You home screen activity
+                                /* Intent intent=new Intent(LoginActivity.this,HomeScreenActivity.class);
+                                startActivity(intent);
+                                finish();*/
+                            } else {
+                                //User Logged in Failed
+                                Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
+                            }
+                        }
 
-                        //User Logged in Failed
-                        Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
-
-                    }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Snackbar.make(buttonLogin, "Failed to log in , please try again", Snackbar.LENGTH_LONG).show();
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                        }
+                    });
                 }
             }
         });

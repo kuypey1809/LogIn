@@ -13,6 +13,14 @@ import android.support.v7.app.AppCompatActivity;
         import android.widget.EditText;
         import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by amardeep on 10/26/2017.
  */
@@ -40,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         sqliteHelper = new SqliteHelper(this);
+        sqliteHelper.query(sqliteHelper.SQL_TABLE_USERS);
+
         initTextViewLogin();
         initViews();
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -50,25 +60,47 @@ public class RegisterActivity extends AppCompatActivity {
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
 
-                    //Check in the database is there any user associated with  this email
-                    if (!sqliteHelper.isEmailExists(Email)) {
+                    RequestParams req = new RequestParams();
+                    req.put("name", UserName);
+                    req.put("email", Email);
+                    req.put("password", Password);
 
-                        //Email does not exist now add new user to database
-                        sqliteHelper.addUser(new User(null, UserName, Email, Password));
-                        Snackbar.make(buttonRegister, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
+                    System.out.println(UserName);
+
+                    HttpUtils.post("api/register", req, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            // called when response HTTP status is "200 OK
+                            User data = new Gson().fromJson(response.toString(), User.class);
+
+                            for (int i=0; i < data.getToken().size(); i++)
+                            {
+                                System.out.println(data.getToken().get(i).getAccess_token());
                             }
-                        }, Snackbar.LENGTH_LONG);
-                    }else {
 
-                        //Email exists with email input provided so show error user already exist
-                        Snackbar.make(buttonRegister, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
-                    }
+//                            try {
+                                sqliteHelper.addUser(data);
+                                Snackbar.make(buttonRegister, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, Snackbar.LENGTH_LONG);
+//                            } catch (Exception e) {
+//                                System.out.println("go here");
+//                                System.out.println(e.getMessage());
+//                                Snackbar.make(buttonRegister, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
+//                            }
+                        }
 
-
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            System.out.println(statusCode);
+                            System.out.println(errorResponse);
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                        }
+                    });
                 }
             }
         });

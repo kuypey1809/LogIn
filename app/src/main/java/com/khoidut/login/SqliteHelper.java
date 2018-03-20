@@ -81,6 +81,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
 
+        for (int i=0; i < user.getToken().size(); i++)
+        {
+            System.out.println(user.getToken().get(i).getAccess_token());
+            values.put(KEY_TOKEN, user.getToken().get(i).getAccess_token());
+        }
 //        values.put(KEY_TOKEN, user.access_token);
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);

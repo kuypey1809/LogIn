@@ -36,4 +36,17 @@
         android:layout_below="@+id/relax"
         android:layout_marginTop="40dp"
         android:text="@string/book" />
+
+
+    <Button
+        android:id="@+id/buttonLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/logout"
+        android:layout_toEndOf="@id/relax"
+        android:layout_toRightOf="@id/relax" />
+
 </RelativeLayout>

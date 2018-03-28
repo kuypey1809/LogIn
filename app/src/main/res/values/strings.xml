@@ -7,7 +7,6 @@
     <string name="register">Register</string>
     <string name="back_to_login">Back to Login</string>
     <string name="app_name">Thu vien</string>
-    <string name="tu_hoc">Self Study</string>
     <string name="relax">Vending Machine</string>
     <string name="book">Borrow Book</string>
     <string name="ban_do">Services Map</string>
@@ -16,4 +15,12 @@
     <string name="TTHL">Trung Tâm Học Liệu</string>
     <string name="KhuA">Khu A</string>
     <string name="KhuC">Khu C</string>
+    <string name="logout">Log Out</string>
+    <string name="tu_hoc">Self Study</string>
+    <string name="canteen1">CanTeen</string>
+    <string name="canteen2">CanTeen</string>
+    <string name="food_store1">Food Store</string>
+    <string name="food_store2">Food Store</string>
+    <string name="vending_machine1">Vending Machine</string>
+    <string name="vending_machine2">Vending Machine</string>
 </resources>

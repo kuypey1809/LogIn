@@ -6,7 +6,7 @@ import com.loopj.android.http.*;
  */
 
 public class HttpUtils {
-    private static final String BASE_URL = "http://10.0.3.2:8000/"; //"http://10.0.3.2:8000/"
+    private static final String BASE_URL = "https://kbv-smart-library.herokuapp.com/"; //"http://10.0.3.2:8000/"
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

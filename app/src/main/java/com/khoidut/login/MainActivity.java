@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER_TOKEN = "token";
     Button tu_hoc;
     Button relax;
-    Button book;
     Button buttonLogOut;
+    Button btnBorrowBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tu_hoc = (Button) findViewById(R.id.tu_hoc);
         relax = (Button) findViewById(R.id.relax);
-        book = (Button) findViewById(R.id.book);
         buttonLogOut = (Button) findViewById(R.id.buttonLogOut);
+        btnBorrowBook = (Button) findViewById(R.id.book);
 
         tu_hoc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
                     editor.commit();
 
                 }
+            }
+        });
+
+        btnBorrowBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this,
+                        BorrowBook.class);
+                startActivity(myIntent);
             }
         });
     }

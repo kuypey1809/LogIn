@@ -33,5 +33,25 @@ public class SelfStudy extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        KhuC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SelfStudy.this,
+                        CapTech.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+        KhuA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SelfStudy.this,
+                        Dormitory.class);
+                startActivity(myIntent);
+
+            }
+        });
     }
 }

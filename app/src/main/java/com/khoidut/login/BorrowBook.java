@@ -23,14 +23,14 @@ public class BorrowBook extends AppCompatActivity {
 
     String[] lstSource = {
 
-            "Harry",
-            "Ron",
-            "Hermione",
-            "Snape",
-            "Malfoy",
-            "One",
-            "Two",
-            "Three",
+            "Coders At Work",
+            "Code Complete",
+            "The Mythical Man-Month",
+            "Dont Make Me Think",
+            "The Pragmatic Programer",
+            "Clean Code",
+            "Programming Pearls",
+            "C++ Programming",
             "Four",
             "Five",
             "Six",
@@ -49,7 +49,9 @@ public class BorrowBook extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Material Search");
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Search");
+
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         lstView = (ListView)findViewById(R.id.lstView);
@@ -116,5 +118,7 @@ public class BorrowBook extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;
-    }
+
+}
+
 }

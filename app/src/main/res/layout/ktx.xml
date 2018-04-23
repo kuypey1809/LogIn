@@ -41,7 +41,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="106dp"
-        android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -52,21 +51,17 @@
     <View
         android:layout_width="260dp"
         android:layout_height="260dp"
-
+        android:id="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/bandott"
-        android:cropToPadding="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/thuvien"
         />
 
     <TextView
         android:textStyle="bold"
         android:textSize="30dp"
-        android:id="@+id/ktx"
+        android:id="@+id/captech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

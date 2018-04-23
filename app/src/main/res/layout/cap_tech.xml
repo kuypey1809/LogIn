@@ -52,14 +52,10 @@
     <View
         android:layout_width="260dp"
         android:layout_height="260dp"
-
+        android:id="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/bandott"
-        android:cropToPadding="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/thuvien"
         />
 

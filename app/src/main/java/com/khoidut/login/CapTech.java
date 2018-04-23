@@ -3,6 +3,8 @@ package com.khoidut.login;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +30,6 @@ public class CapTech extends AppCompatActivity {
 
         dataReceived = (TextView) findViewById(R.id.dataReceived);
 
-
         startMqtt();
     }
 
@@ -48,31 +49,31 @@ public class CapTech extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-//                Log.w("Debug", mqttMessage.toString());
+                Log.w("Debug", mqttMessage.toString());
                 dataReceived.setText(mqttMessage.toString());
 
                 String xxx= mqttMessage.toString();
 //                System.out.println(xxx);
-                int cailon;
-                cailon = Integer.parseInt(xxx.trim());
-                System.out.println(cailon);
+                int density;
+                density = Integer.parseInt(xxx.trim());
+                System.out.println(density);
 
-                if (cailon <= 15){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int red = Color.parseColor("#FF00FF40");
-                    changeColor.setColorFilter(red);
+                if (density <= 20){
+                    View changeColor = (View) findViewById(R.id.imageView);
+                   // int red = Color.parseColor("#FF00FF40");
+                    changeColor.setBackgroundResource(R.color.green);
                 }
 
-                if (cailon >= 16 && cailon <=20){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int blue = Color.parseColor("#FFFFF700");
-                    changeColor.setColorFilter(blue);
+                if (density >= 21 && density <=30){
+                    View changeColor = (View) findViewById(R.id.imageView);
+                  //  int blue = Color.parseColor("#FFFFF700");
+                    changeColor.setBackgroundResource(R.color.yellow);
                 }
 
-                if (cailon >= 20 && cailon <=100){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int red = Color.parseColor("#FFFF0000");
-                    changeColor.setColorFilter(red);
+                if (density >= 31 && density <=100){
+                    View changeColor = (View) findViewById(R.id.imageView);
+                  //  int red = Color.parseColor("#FFFF0000");
+                    changeColor.setBackgroundResource(R.color.red);
                 }
 
             }

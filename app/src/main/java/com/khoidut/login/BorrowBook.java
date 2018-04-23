@@ -49,7 +49,9 @@ public class BorrowBook extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         Objects.requireNonNull(getSupportActionBar()).setTitle("Search");
+
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         lstView = (ListView)findViewById(R.id.lstView);
@@ -116,5 +118,10 @@ public class BorrowBook extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;
+
     }
 }
+
+
+
+

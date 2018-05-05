@@ -35,4 +35,3 @@
         android:dividerHeight="1dp"
         tools:ignore="UnknownIdInLayout" />
 </RelativeLayout>
-

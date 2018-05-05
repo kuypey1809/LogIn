@@ -34,8 +34,8 @@ public class User {
     }
 
     public List<TokenUser> getToken() {
-        return this.token;
-    }
+    return this.token;
+}
 
     public void setToken(List<TokenUser> token) {
         this.token = token;

@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,
-                        BorrowBook.class);
+                        GetBook.class);
                 startActivity(myIntent);
             }
         });

@@ -6,7 +6,7 @@ import com.loopj.android.http.*;
  */
 
 public class HttpUtils {
-    private static final String BASE_URL = "https://kbv-smart-library.herokuapp.com/"; //"http://10.0.3.2:8000/"
+    private static final String BASE_URL = "http://khoi-smart-library.herokuapp.com/"; //"http://10.0.3.2:8000/"
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -18,11 +18,15 @@ public class HttpUtils {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler, String token) {
+        client.addHeader("Authorization", "Bearer " + token);
+        client.addHeader("Accept", "application/json");
         client.get(url, params, responseHandler);
     }
 
-    public static void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public static void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler, String token) {
+        client.addHeader("Authorization", "Bearer " + token);
+        client.addHeader("Accept", "application/json");
         client.post(url, params, responseHandler);
     }
 

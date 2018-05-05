@@ -56,24 +56,24 @@ public class Dormitory extends AppCompatActivity {
                 int cailon;
                 cailon = Integer.parseInt(xxx.trim());
                 System.out.println(cailon);
-
-                if (cailon <= 15){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int red = Color.parseColor("#FF00FF40");
-                    changeColor.setColorFilter(red);
-                }
-
-                if (cailon >= 16 && cailon <=20){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int blue = Color.parseColor("#FFFFF700");
-                    changeColor.setColorFilter(blue);
-                }
-
-                if (cailon >= 20 && cailon <=100){
-                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
-                    int red = Color.parseColor("#FFFF0000");
-                    changeColor.setColorFilter(red);
-                }
+//
+//                if (cailon <= 15){
+//                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
+//                    int red = Color.parseColor("#FF00FF40");
+//                    changeColor.setColorFilter(red);
+//                }
+//
+//                if (cailon >= 16 && cailon <=20){
+//                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
+//                    int blue = Color.parseColor("#FFFFF700");
+//                    changeColor.setColorFilter(blue);
+//                }
+//
+//                if (cailon >= 20 && cailon <=100){
+//                    ImageView changeColor = (ImageView) findViewById(R.id.imageView);
+//                    int red = Color.parseColor("#FFFF0000");
+//                    changeColor.setColorFilter(red);
+//                }
 
             }
 
